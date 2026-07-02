@@ -1,12 +1,12 @@
 package array;
 
-public class Array {
+public class DynamicArray {
     int[] arr; // raw array
     int capacity; // maximum size of the array
     int size; // no of elements currently present in the array
 
     // create an array via constructor
-    public Array(int capacity) {
+    public DynamicArray(int capacity) {
         arr = new int[capacity];
         this.capacity = capacity;
         size = 0; // starts empty
@@ -79,7 +79,7 @@ public class Array {
     }
 
     public static void main(String[] args) {
-        Array arr1 = new Array(5);
+        DynamicArray arr1 = new DynamicArray(5);
 //        System.out.println(arr1.capacity);
 
         arr1.insert(0, 5);
