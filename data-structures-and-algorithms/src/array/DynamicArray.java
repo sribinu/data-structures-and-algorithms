@@ -6,6 +6,8 @@ public class DynamicArray {
     int size; // no of elements currently present in the array
 
     // create an array via constructor
+    // Worst-Case Time Complexity: O(n) (when shifting is required or resize occurs)
+    // Amortized Time Complexity at the end: O(1)
     public DynamicArray(int capacity) {
         arr = new int[capacity];
         this.capacity = capacity;
@@ -15,10 +17,16 @@ public class DynamicArray {
     // insert an element into an array (O(n) time)
     public boolean insert(int index, int element) {
         // Safety check: prevent out-of-bounds or exceeding capacity
-        if (index < 0 || index > size || size >= capacity) {
+        if (index < 0 || index > size) {
             System.out.println("Insert failed. Can't insert: " + element);
             return false;
         }
+
+        // check if array is full
+        if (size >= capacity) {
+            resize(); // automatically grow physical memory
+        }
+
         // shift elements to the RIGHT to make space
         for (int i = size; i > index; i--) {
             arr[i] = arr[i - 1];
@@ -70,6 +78,20 @@ public class DynamicArray {
         return true;
     }
 
+    // Grow the array capacity by a factor of 2 (O(n) Time to copy)
+    public void resize() {
+        int newCapacity = 2 * capacity;
+        // create a new array
+        int[] newArr = new int[newCapacity];
+        // copy all the elements from the existing array into this new array
+        for (int i = 0; i < size; i++) {
+            newArr[i] = arr[i];
+        }
+        // replace the array
+        arr = newArr; // Java Garbage Collection automatically dereference `arr' and remove it
+        capacity = newCapacity;
+    }
+
     // display the array elements
     public void display() {
         for (int i = 0; i < size; i++) {
@@ -80,13 +102,16 @@ public class DynamicArray {
 
     public static void main(String[] args) {
         DynamicArray arr1 = new DynamicArray(5);
-//        System.out.println(arr1.capacity);
+        System.out.println("Initial capacity of the array: " + arr1.capacity);
 
         arr1.insert(0, 5);
         arr1.insert(1, 4);
         arr1.insert(1, 7);
         arr1.insert(1, 9);
-//        arr1.insert(7, 6);
+        arr1.insert(2, 6);
+        arr1.insert(2, 8);
+
+        System.out.println("Updated capacity of the array: " + arr1.capacity);
 
         arr1.display(); // Output: 5 9 7 4
 
@@ -103,5 +128,4 @@ public class DynamicArray {
 
         arr1.display(); // Output: 5 7 4
     }
-
 }
