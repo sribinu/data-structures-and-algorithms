@@ -134,6 +134,21 @@ public class SinglyLinkedList<T> {
         return false;
     }
 
+    public void reverse() {
+        DynamicNode<T> prev = null;
+        DynamicNode<T> current = head;
+        DynamicNode<T> next = null;
+
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        head = prev;
+    }
+
     public void display() {
         DynamicNode<T> temp = head;
         while (temp != null) {
@@ -160,6 +175,10 @@ public class SinglyLinkedList<T> {
 
         System.out.println(list.search(3)); // false
         System.out.println(list.search(5)); // true
+
+        list.display();
+
+        list.reverse(); // 4 5 1
 
         list.display();
     }

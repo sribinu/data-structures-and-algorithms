@@ -123,6 +123,22 @@ public class LinkedList {
          return false;
     }
 
+    // reverse the list
+    public void reverse() {
+        Node prev = null;
+        Node current = head;
+        Node next = null;
+
+        while(current != null) {
+            next = current.next;
+            current.next = prev; // reverse the pointer
+            prev = current;
+            current = next;
+        }
+
+        head = prev;
+    }
+
     // display data
     public void display() {
         Node temp = head;
@@ -131,6 +147,7 @@ public class LinkedList {
             temp = temp.next;
         }
         System.out.print("null");
+        System.out.println();
     }
 
     public static void main(String[] args) {
@@ -152,5 +169,13 @@ public class LinkedList {
         System.out.println(list.search(5)); // Expected Output: false
 
         list.display(); // Expected Output: 2 -> 1 -> 4 -> null
+
+        list.reverse(); // 4 -> 1 -> 2 -> null
+
+        list.display();
+
+        list.reverse(); // 2 -> 1 -> 4 -> null
+
+        list.display();
     }
 }
